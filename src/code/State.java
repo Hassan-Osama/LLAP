@@ -55,9 +55,9 @@ public class State {
 
     boolean isDeadState() {
         return
-                food == 0
-                || material == 0
-                || energy == 0
+                food <= 0
+                || material <= 0
+                || energy <= 0
                 || moneySpent >= START_BUDGET;
     }
 

@@ -1,6 +1,7 @@
 package code;
 
 import code.strategy.BFStrategy;
+import code.strategy.GreedyStrategy;
 import code.strategy.UCStrategy;
 
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class LLAPSearch extends GenericSearch<State> {
         }
 
 
-        if (currentState.isDeadState() || currentState.moneyLeft() <= constants.unitPriceFood + constants.unitPriceMaterial + constants.unitPriceEnergy) return new ArrayList<>();
+        if (currentState.isDeadState()) return new ArrayList<>();
 
         ArrayList<Node<State>> newNodes = new ArrayList<>();
 
@@ -195,11 +196,12 @@ public class LLAPSearch extends GenericSearch<State> {
     }
 
     public static String solve(String problem, String strategy, boolean visualize) {
-        if (getStrategy(strategy) == null) return "NOSOLUTION";
+        Constants c = getProblemConstants(problem);
+        if (getStrategy(c, strategy) == null) return "NOSOLUTION";
         LLAPSearch searchProblem = new LLAPSearch(
                 getInitialState(problem),
                 getProblemConstants(problem),
-                getStrategy(strategy));
+                getStrategy(c, strategy));
 
         Node<State> solutionNode = searchProblem.solve();
 
@@ -242,9 +244,11 @@ public class LLAPSearch extends GenericSearch<State> {
         );
     }
 
-    static SearchStrategy<State> getStrategy(String strategy) {
+    static SearchStrategy<State> getStrategy(Constants c, String strategy) {
         if (strategy.equalsIgnoreCase("bf")) return new BFStrategy<>();
         if (strategy.equalsIgnoreCase("uc")) return new UCStrategy<>();
+        if (strategy.equalsIgnoreCase("gr1")) return new GreedyStrategy(c,1);
+        if (strategy.equalsIgnoreCase("gr2")) return new GreedyStrategy(c, 2);
         return null;
     }
 

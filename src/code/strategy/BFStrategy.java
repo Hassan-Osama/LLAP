@@ -18,14 +18,12 @@ public class BFStrategy<S> extends SearchStrategy<S> {
     }
 
     @Override
-
     public void addNewNodes(List<Node<S>> nodes) {
-        queue.addAll(
-                nodes.stream()
-                        .filter(n -> !s.contains(n.state))
-                        .toList()
-        );
-        s.addAll(nodes.stream().map(n -> n.state).toList());
+        List<Node<S>> filtered = nodes.stream()
+                .filter(n -> !s.contains(n.state))
+                .toList();
+        queue.addAll(filtered);
+        s.addAll(filtered.stream().map(n -> n.state).toList());
     }
 
     @Override
