@@ -49,12 +49,16 @@ public class GreedyStrategy extends SearchStrategy<State> {
     float secondHeuristic(State s) {
         // The closer we are to build the better.
         int build1Shortage =
-                (c.foodUseBuild1 - s.food) + (c.materialUseBuild1 - s.material)+ (c.energyUseBuild1 - s.energy);
+                Math.max((c.foodUseBuild1 - s.food), 0) * c.unitPriceFood
+                        + Math.max((c.materialUseBuild1 - s.material), 0) * c.unitPriceMaterial
+                        + Math.max((c.energyUseBuild1 - s.energy), 0) * c.unitPriceEnergy;
 
         int build2Shortage =
-                (c.foodUseBuild2 - s.food) + (c.materialUseBuild2 - s.material)+ (c.energyUseBuild2 - s.energy);
+                Math.max((c.foodUseBuild2 - s.food), 0) * c.unitPriceFood
+                        + Math.max((c.materialUseBuild2 - s.material), 0) * c.unitPriceMaterial
+                        + Math.max((c.energyUseBuild2 - s.energy), 0) * c.unitPriceEnergy;
 
-        return Math.min(Math.max(build2Shortage, 0) / (float)c.prosperityBuild2 , Math.max(build1Shortage, 0) / (float) c.prosperityBuild1);
+        return Math.min(build2Shortage , build1Shortage);
     }
 
     @Override
