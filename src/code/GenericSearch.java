@@ -31,6 +31,7 @@ public abstract class GenericSearch<S> {
     public Node<S> solve() {
         while(!strategy.isEmpty()) {
             Node<S> node = strategy.removeFront();
+            if (node == null) return null;
             if (isGoalState(node.state)) {
                 return node;
             }

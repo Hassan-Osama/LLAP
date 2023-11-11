@@ -119,9 +119,9 @@ public class LLAPSearch extends GenericSearch<State> {
             s.food -= 1;
             s.material -= 1;
             s.energy -= 1;
-            s.foodDelay -= 1;
-            s.materialDelay -= 1;
-            s.energyDelay -= 1;
+            s.foodDelay = Math.max(s.foodDelay - 1, -1);
+            s.materialDelay = Math.max(s.materialDelay - 1, -1);
+            s.energyDelay = Math.max(s.energyDelay - 1, -1);
 
             int moneyToSpend = constants.unitPriceFood + constants.unitPriceMaterial + constants.unitPriceEnergy;
             s.moneySpent += moneyToSpend;
@@ -151,9 +151,10 @@ public class LLAPSearch extends GenericSearch<State> {
                 s1.prosperity += constants.prosperityBuild1;
 
 
-                s1.foodDelay -= 1;
-                s1.materialDelay -= 1;
-                s1.energyDelay -= 1;
+                s1.foodDelay = Math.max(s1.foodDelay - 1, -1);
+                s1.materialDelay = Math.max(s1.materialDelay - 1, -1);
+                s1.energyDelay = Math.max(s1.energyDelay - 1, -1);
+
 
                 Node<State> n = makeNode(s1, node, "BUILD1", node.depth + 1, node.pathCost + build1Cost);
                 newNodes.add(n);
@@ -177,9 +178,10 @@ public class LLAPSearch extends GenericSearch<State> {
                 s2.moneySpent += build2Cost;
                 s2.prosperity += constants.prosperityBuild2;
 
-                s2.foodDelay -= 1;
-                s2.materialDelay -= 1;
-                s2.energyDelay -= 1;
+                s2.foodDelay = Math.max(s2.foodDelay - 1, -1);
+                s2.materialDelay = Math.max(s2.materialDelay - 1, -1);
+                s2.energyDelay = Math.max(s2.energyDelay - 1, -1);
+
 
                 Node<State> n = makeNode(s2, node, "BUILD2", node.depth + 1, node.pathCost + build2Cost);
                 newNodes.add(n);
