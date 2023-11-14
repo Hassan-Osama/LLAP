@@ -1,8 +1,6 @@
 package code;
 
-import code.strategy.BFStrategy;
-import code.strategy.GreedyStrategy;
-import code.strategy.UCStrategy;
+import code.strategy.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -249,6 +247,8 @@ public class LLAPSearch extends GenericSearch<State> {
     static SearchStrategy<State> getStrategy(Constants c, String strategy) {
         if (strategy.equalsIgnoreCase("bf")) return new BFStrategy<>();
         if (strategy.equalsIgnoreCase("uc")) return new UCStrategy<>();
+        if (strategy.equalsIgnoreCase("id")) return new IDStrategy<>();
+        if (strategy.equalsIgnoreCase("df")) return new DFStrategy<>();
         if (strategy.equalsIgnoreCase("gr1")) return new GreedyStrategy(c,1);
         if (strategy.equalsIgnoreCase("gr2")) return new GreedyStrategy(c, 2);
         return null;
